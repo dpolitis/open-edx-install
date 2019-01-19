@@ -81,7 +81,7 @@
   {\scshape\Large Εργασία στο Μεταπτυχιακό Μάθημα\\
   Πολυμεσικό Υλικό στο Internet: Συγχρονισμός, Επεξεργασία και Διακίνηση\par}
   \vspace{1.5cm}
-  {\Large\bfseries Εγκατάσταση του \textlatin{Open edX} και Δημιουργία Ενδεικτικού Μαθήματος\par}
+  {\Large\bfseries Εγκατάσταση του \textlatin{Open edX} και Δημιουργία Ενδεικτικού Ιστοτόπου Μαθήματος\par}
   \vspace{2cm}
   {\large Δημήτριος Πολίτης (ΥΔ)\par}
   \vfill
@@ -102,7 +102,7 @@
 \thispagestyle{empty}
 
 \begin{abstract}
-Στο παρόν παρουσιάζεται η λειτουργία και η διαδικασία ανάπτυξης ενός μαθήματος στην πλατφόρμα \textlatin{Open-EDX}. Αρχικά  γίνεται αναφορά στην εν λόγω πλατφόρμα ηλεκτρονικής μάθησης και στη συνέχεια περιγράφεται αναλυτικά η διαδικασία εγκατάστασης της, με τη χρήση αυτοματοποιημένων εργαλείων (\textlatin{ansible, vagrant}). Τέλος περιγράφεται ο τρόπος δημιουργίας εντός τής πλατφόρμας, ενός ενδεικτικού μαθήματος. Η εργασία είναι διαθέσιμη από το σύνδεσμο \textlatin{\url{https://github.com/dpolitis/open-edx-install}}.
+Στο παρόν παρουσιάζεται η λειτουργία και η διαδικασία ανάπτυξης ενός μαθήματος στην πλατφόρμα \textlatin{Open-EDX}. Αρχικά  γίνεται αναφορά στην εν λόγω πλατφόρμα ηλεκτρονικής μάθησης και στη συνέχεια περιγράφεται αναλυτικά η διαδικασία εγκατάστασης της, με τη χρήση αυτοματοποιημένων εργαλείων (\textlatin{ansible, vagrant}). Τέλος περιγράφεται ο τρόπος δημιουργίας εντός τής πλατφόρμας, ενός ενδεικτικού ιστοτόπου μαθήματος. Η εργασία είναι διαθέσιμη από το σύνδεσμο \textlatin{\url{https://github.com/dpolitis/open-edx-install}}.
 
 \vspace{10mm}
 
@@ -201,7 +201,7 @@ H λειτουργια των συζητήσεων για τα μαθήματα 
 \subsection{Επιπλέον Λειτουργικότητα}
 Εκτός από τα όσα αναθέρθηκαν παραπάνω, το \textlatin{open edX} διαθέτει επίσης επιπλέον δυνατότητες, όπως τη διαχειρίση λειτουργιών ηλεκτρονικού εμπορίου~\cite{edx_arch}.
 
-Το παρόν πραγματεύεται την ανάπτυξη ενός ενδεικτικού μαθήματος στην πλατφόρμα \textlatin{open edX}. Στα επόμενα παρουσιάζεται η διαδικασία εγκατάστασης της πλατφόρμας με τη χρήση αυτοματοποιημένων εργαλείων ανάπτυξης, ενώ γίνεται και μια συνοπτική αναφορά στα εργαλεία που χρησιμοποιήθηκαν κατά την εγκατάσταση.
+Το παρόν πραγματεύεται την ανάπτυξη ενός ενδεικτικού ιστοτόπου μαθήματος στην πλατφόρμα \textlatin{open edX}. Στα επόμενα παρουσιάζεται η διαδικασία εγκατάστασης της πλατφόρμας με τη χρήση αυτοματοποιημένων εργαλείων ανάπτυξης, ενώ γίνεται και μια συνοπτική αναφορά στα εργαλεία που χρησιμοποιήθηκαν κατά την εγκατάσταση.
 
 \chapter{Εγκατάσταση της Πλατφόρμας \textlatin{open edX}}\label{ch3}
 Για την εγκατάσταση της εν λόγω πλατφόρμας χρησιμοποιήθηκε αριθμός εργαλείων, τα οποία στην πλειονότητά τους βρίσκονται διαθέσιμα δωρεάν στο Διαδίκτυο (\textlatin{Open Source Software}). Στα επόμενα γίνεται μια σύντομη αναφορά στα εργαλεία που χρησιμοποιήθηκαν και στη διαδικασία της εγκατάστασης.
@@ -237,27 +237,55 @@ H λειτουργια των συζητήσεων για τα μαθήματα 
 Σε αντίθεση με διάφορα λογισμικά του είδους, όπως τα \textlatin{Chef, Puppet, CFEngine} το \textlatin{Ansible} δε χρειάζεται την εγκατάσταση συγκεκριμένου \textlatin{agent} στα μηχανήματα στόχους (\textlatin{agentless architecture}~\cite{wikipedia_2019}). Σε ένα τέτοιο είδος αρχιτεκτονικής, οι εξυπηρετητές δεν επιβαρύνονται με επιπλέον υπηρεσίες ή λογισμικό, ταα οποία τρέχουν στο παρασκήνιο και απορροφούν πόρους.
 
 \section{Διαδικασία Εγκατάστασης}
-Μετά την εγκατάσταση της εικονικής μηχανής με τη χρήση του \textlatin{Vagrantfile}, όπως περιγράφηκε στο~\ref{vagrant}, ακολουθήθηκε η διαδικασία εγκατάστασης της πλατφόρμας με την κλήση του \textlatin{bash script} του Παραρτήματος~\ref{AppB}. Επιλέχθηκε η \textlatin{native installation} καθώς είναι η πιο πλήρης και μπορεί να εγκατασταθεί σε παραγωγικό εξυπηρετητή χωρίς ιδιαίτερς μετατροπές. Για την έκδοση του \textlatin{open edX} επιλέχθηκε η προηγούμενη σταθερή έκδοση (\textlatin{Ginkgo2} αντί \textlatin{Hawthorn}), καθώς είναι πιο δοκιμασμένη και απαιτεί λιγότερο χρόνο σε αποσφαλμάτωση.
+Μετά την εγκατάσταση της εικονικής μηχανής με τη χρήση του \textlatin{Vagrantfile}, όπως περιγράφηκε στο~\ref{vagrant}, ακολουθήθηκε η διαδικασία εγκατάστασης της πλατφόρμας με την κλήση του \textlatin{bash script} του Παραρτήματος~\ref{AppB}. Επιλέχθηκε η \textlatin{native installation}, έναντι των \textlatin{fullstack} ή \textlatin{devstack}, καθώς είναι η πιο πλήρης και μπορεί να εγκατασταθεί σε παραγωγικό εξυπηρετητή χωρίς ιδιαίτερς μετατροπές. Για την έκδοση του \textlatin{open edX} επιλέχθηκε η προηγούμενη σταθερή έκδοση (\textlatin{Ginkgo2} αντί \textlatin{Hawthorn}), καθώς είναι πιο δοκιμασμένη και απαιτεί λιγότερο χρόνο σε αποσφαλμάτωση.
 
 Οι 10 πρώτες γραμμές του \textlatin{bash script} διενεργούν αρχικούς ελέγχους και δημιουργούν απαραίτητους φακέλους. Στη συνέχεια εγκαθιστούνται στους αντίστοιχους φακέλους απαραίτητα \textlatin{components} του \textlatin{open edX}. Στις γραμμές 40-141 εισάγεται ένα πιστοποιητικό που αφορά σε πακέτα προς εγκατάσταση (αποτυγχάνει μέσω της αυτοματοποιημένης εγκατάστασης).
 
 Στη συνέχεια ορίζεται η προς εγκατάσταση έκδοση του \textlatin{open edX (Ginkgo2)} και μεταφορτώνεται το \textlatin{script} εγκατάστασης από το επίσημο αποθετήριο λογισμικού. Οι γραμμές 162-313 δημιουργούν ένα αρχείο \textlatin{patch}, το οποίο χρησιμοποιείται αργότερα για την τροποποίηση κάποιων αρχείων του λογισμικού, τα οποία δημιουργούν σφάλματα κατά την εγκατάσταση. Τέλος στις γραμμές 315-326 γίνεται μεταφόρτωση του λογισμικού \textlatin{open edX}, εφαρμόζεται το προαναφερθέν \textlatin{patch} και καλείται η \textlatin{ansible} για την ολοκλήρωση της αυτοματοποιημένης εγκατάστασης.
 
-\chapter{Δημιουργία Ενδεικτικού Μαθήματος}\label{ch4}
+\chapter{Δημιουργία Ενδεικτικού Ιστοτόπου Μαθήματος}\label{ch4}
 \section{Εισαγωγή}
-Στη συνέχεια γίνεται σύντομη αναφορά στη διαδικασία δημιουργίας ενός μαθήματος, μέσα από το εργαλείο \textlatin{Studio} της πλατφόρμας \textlatin{open edX} (τμήμα \ref{ch2}). Έπειτα παρουσιάζεται συνοπτικά η λειτουργικότητα του μαθήματος. Παρατίθενται για αυτό το σκοπό ανάλογα \textlatin{screenshots} με επεξηγήσεις για τις κύριες λειτουργίες.
+Στη συνέχεια γίνεται σύντομη αναφορά στη διαδικασία δημιουργίας ενός ιστοτόπου μαθήματος, μέσα από το εργαλείο \textlatin{Studio} της πλατφόρμας \textlatin{open edX} (τμήμα \ref{ch2}). Έπειτα παρουσιάζεται συνοπτικά η λειτουργικότητα του ιστοτόπου αυτού. Παρατίθενται για αυτό το σκοπό ανάλογα \textlatin{screenshots} με επεξηγήσεις για τις κύριες λειτουργίες.
 
 \section{Δημιουργία του Μαθήματος}
-Για τη δημιουργία του μαθήματος ακολουθήθηκε η επίσημη τεκμηρίωση της πλατφόρμας~\cite{edxdata_package}.
+Για τη δημιουργία του μαθήματος ακολουθήθηκε η επίσημη τεκμηρίωση της πλατφόρμας~\cite{edxdata_package_1}. 
 Αρχικά υλοποιήθηκε το \textlatin{admin panel} με τι σελίδες διαχείρησης χρηστών και δικαιωμάτων. Στη συνέχεια υλοποιήθηκαν οι σελίδες \textlatin{login} για τους απλούς χρήστες και το \textlatin{admin panel}, ώστε να είναι έτοιμες για τα σενάρια αποσφαλμάτωσης. Έπειτα δημιουργήθηκε το αρχείο με τα μηνύματα της διεπαφής στα ελληνικά και τα αγγλικά, το οποίο εμπλουτίστηκε στη συνέχεια με νέο περιεχόμενο, κατά τη διαδικασία της ανάπτυξης.
 
 Στα επόμενα στάδια δημιουργήθηκε η διεπαφή δημιουργίας μιας δημοπρασίας, με δυνατότητα ανάρτησης κειμένου, φωτογραφιών και άλλων πολυμέσων περιγραφής του προς πώληση προϊόντος. Τελευταία δημιουργήθηκε η διεπαφή πονταρίσματος (\textlatin{bidding}) με τις βασικές λειτουργίες αυτόματης ανανέωσης της σελίδας, λήξης της δημοπρασίας με χρονομέτρηση και ανάδειξη νικητή με βάση το ύψος της προσφοράς.
 
 Με το πέρας της διαδικασίας ανάπτυξης δημιουργήθηκαν δοκιμαστικοί χρήστες και σενάρια δοκιμών για την αποσφαλμάτωση του κώδικα. Δοκιμάστηκαν πλήρη σενάρια και διορθώθηκαν σφάλματα, τα οποία είχαν να κάνουν με την μη σωστή αυτόματη ανανέωση του περιεχομένου της σελίδας.
+\selectlanguage{english}
+\begin{Verbatim}
+  $ sudo -u edxapp bash
+  $ cd /edx/app/edxapp
+  $ . edxapp_env
+  $ . venvs/edxapp/bin/activate
+  $ cd edx-platform/
+  $ ./manage.py lms manage_user staff staff@example.com --staff --superuser --settings=devstack
+\end{Verbatim}
+\selectlanguage{greek}
 
 \section{Λειτουργικότητα Ιστοσελίδας}
 \subsection{\textlatin{Admin Panel}}
-Το πρώτο πράγμα που βλέπει κάποιος όταν επισκέπτεται την ιστοσελίδα είναι η φόρμα εισόδου. Για τις ανάγκες της εφαρμογής έχουν δημιουργηθεί δυο διαφορετικές σελίδες εισόδου. Μια για το \textlatin{admin panel} και μια για το \textlatin{login} των λοιπών χρηστών. Στην εικόνα~\ref{fig:login_1} παρουσιάζεται η σελίδα εισόδου στο \textlatin{admin panel}.
+Το πρώτο πράγμα που βλέπει κάποιος όταν επισκέπτεται την ιστοσελίδα είναι η φόρμα εισόδου. Για τις ανάγκες της εργασίας έχει δημιουργηθεί ένα ενδεικτικό \textlatin{"Mini site"}. Το \textlatin{url} του προαναφερόμενου ιστότοπου είναι \textlatin{\url{https://cd-edx.linked.gr}}.
+
+Once the VM is running, you can access the LMS and Studio at these URLS:
+
+    LMS: http://192.168.33.10/
+    Studio: http://192.168.33.10:18010/
+
+When you install an Open edX system, the following user accounts are created by default.
+
+    Account             Description
+    staff@example.com   An LMS and Studio user with course creation and editing permissions. This user is a course team member with the Admin role, which gives rights to work with the demonstration course in Studio, the LMS, and Insights.
+    verified@example.com  A student account that you can use to access the LMS for testing verified certificates.
+    audit@example.com   A student account that you can use to access the LMS for testing course auditing.
+    honor@example.com   A student account that you can use to access the LMS for testing honor code certificates.
+
+The password for all of these accounts is edx.
+
+
+Η αρχική σελίδα της πλατφόρμας \textlatin{} Μια για το \textlatin{admin panel} και μια για το \textlatin{login} των λοιπών χρηστών. Στην εικόνα~\ref{fig:login_1} παρουσιάζεται η σελίδα εισόδου στο \textlatin{admin panel}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth, height=8cm]{Screenshot-2018-1-14-login-e-auctions}
@@ -272,6 +300,64 @@ H λειτουργια των συζητήσεων για τα μαθήματα 
 \caption{Φόρμα Διαχείρησης Χρηστών}
 \label{fig:user_admin}
 \end{figure}
+To create an Open edX site, follow these steps.
+
+    Sign in to the Django administration console for your base URL. For example, http://{your_URL}/admin.
+
+    Select Sites to open the http://{your_URL}/admin/sites/site page.
+
+    Enter the domain name for the site. This is the domain name in the URL for the site. For example, myuniversity.edu.
+
+    To make a site available on a non-default port that is entered as part of the URL, the domain name must include the port number. For example, if an LMS site is available at my-site.localhost:8000, the domain name for the site must be my-site.localhost:8000.
+
+    Select Save.
+
+To set configuration properties for a site, follow these steps.
+
+    Sign in to the Django administration console for your base URL. For example, http://{your_URL}/admin.
+
+    Select Site Configurations .
+
+    Select Add site configuration.
+
+    From the Site menu, select the site you want to configure.
+
+    Enter configuration properties in the Values field. Structure all properties in valid JavaScript Object Notation (JSON) format.
+
+    To make courses site-specific, you set the course_org_filter property to an organization identifier. Only that organization’s courses are available from the site.
+
+Theming
+sudo mkdir /edx-themes
+sudo chmod -R u+rw /edx-themes
+sudo chown -R www-data:www-data /edx-themes
+  sudo su -m -s /bin/bash www-data
+    git clone --depth=1 --single-branch -b "edx-west/release-20181212" https://github.com/Stanford-Online/openedx-themes.git /edx-themes
+  sudo vi /edx/app/edxapp/lms.env.json
+  sudo vi /edx/app/edxapp/cms.env.json
+  "ENABLE_COMPREHENSIVE_THEMING": true
+  "COMPREHENSIVE_THEME_DIRS": [
+    "/edx-themes"
+
+],
+
+sudo -H -u edxapp bash
+source /edx/app/edxapp/edxapp_env
+source /edx/app/edxapp/venvs/edxapp/bin/activate
+cd /edx/app/edxapp/edx-platform
+paver update_assets
+paver update_assets lms --theme-dirs /edx/app/edxapp/edx-microsite
+
+019-01-19 13:09:48,668 INFO 11160 [lms.startup] base.py:277 - Loading microsite path at /edx/app/edxapp/edx-microsite
+                Finished collecting lms assets.
+
+# restart edx instance
+sudo /edx/bin/supervisorctl restart all
+
+Select Site themes.
+Select Add site theme.
+From the Site menu, select the site you want to apply a theme to.
+In the Theme dir name field, enter the identifier of the theme.
+Select Save.
 
 Στο επόμενο \textlatin{tab} εμφανίζονται τα εργαλεία της διαχείρισης όλων των δημοπρασιών (μόνο ακύρωση - διαγραφή, εικόνα~\ref{fig:auction_admin}).
 \begin{figure}[H]
@@ -280,6 +366,37 @@ H λειτουργια των συζητήσεων για τα μαθήματα 
 \caption{Φόρμα Διαχείρησης Δημοπρασιών}
 \label{fig:auction_admin}
 \end{figure}
+To create a course, follow these steps~\cite{edxdata_package_2}.
+
+    Sign in to Studio.
+
+    Select New Course.
+
+    Enter the following information about your course.
+
+    Important
+
+    The values that you enter for the organization, course number, and course run cannot be edited after you create your course.
+
+        For Course Name, enter the title of your course. For example, the name might be “Sets, Maps, and Symmetry Groups”. Use title capitalization for the course title, and normal spacing and punctuation.
+
+        For Organization, you enter the identifier for your organization. Do not include spaces or special characters.
+
+        For Course Number, you enter both a subject abbreviation and a number. For example, for public health course number 207, enter PH207. For math course 101x, enter Math101x. Do not include spaces or special characters in the course number.
+
+        Note
+
+        If your course will be public, be sure to include the “x”. If it is exclusively an on campus offering, do not include the “x”.
+
+        For Course Run, you enter the term in which your course will run. For example, enter 2014SOND or T2_2014. Do not include spaces or special characters.
+
+        The value that you enter for the run does not affect the course start date that you define for the course. For more information, see Scheduling a Course Run.
+
+    The organization, course number, and course run values that you enter are used to create the URL for your course. Because URLs do not have an unlimited length, the total number of characters that you enter for these values must be 65 or fewer.
+
+    Select Create.
+
+    The Course Outline page opens. You can start developing course content. For more information, see Getting Started with Course Content Development.
 
 Το τελευταίο εργαλείο του \textlatin{admin panel} αφορά στη διαχείριση κατηγοριών προϊόντων. Εδώ καθορίζονται οι κατηγορίες στις οποίες καταχωρούνται τα προϊόντα κατά τη δημιουργία μιας δημοπρασίας. Είναι δυνατή η προσθήκη, διαγραφή και ενημέρωση της περιγραφής, του μοναδικού αναγνωριστικού και μιας προαιρετικής μικρογραφίας για την περιγραφή της κατηγορίας (εικόνα~\ref{fig:category_admin}).
 \begin{figure}[H]

@@ -57,6 +57,7 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder "edx_microsite", "/edx/app/edxapp/edx-microsite", create: true, owner: "edxapp", group: "www-data"
   #config.vm.synced_folder "www", "/var/www", type: "rsync",
   # rsync__args: [
   #   "--verbose", "--archive", "-z", "--copy-links", "-A", "--delete-before"
