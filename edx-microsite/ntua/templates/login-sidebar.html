@@ -1,0 +1,29 @@
+<%! 
+from django.utils.translation import ugettext as _ 
+from django.core.urlresolvers import reverse
+%>
+
+<header>
+  <h2 class="sr">${_("Helpful Information")}</h2>
+</header>
+
+<div class="cta cta-help">
+  <h3>${_("Not Enrolled?")}</h3>
+  <p><a href="${reverse('register_user')}">${_("Sign up for {platform_name} today!").format(platform_name=platform_name)}</a></p>
+
+  <h3>${_("Need Help?")}</h3>
+  <p>
+    <a href="mailto:info@netmode.ntua.gr?Subject=Help%20needed" target="_top">Contact us:</a>
+  </p>
+
+  <p>
+    <img src="static/ntua/images/ntua-logo.png" alt="NTUA Logo">
+    <b>Network Management & Optimal Design Lab</b><br><br>
+    School of Electrical & Computer Engineering<br>
+    National Technical University of Athens - NTUA<br>
+    New Electrical & Computer Engineering Building,<br>
+    3rdFloor, Room B.3.20<br>
+    9, Iroon Polytechniou Street<br>
+    Zografou, Greece, GR 157 80<br>
+  </p>
+</div>
