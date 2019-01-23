@@ -234,193 +234,225 @@ H λειτουργια των συζητήσεων για τα μαθήματα 
 
 Όπως με τα περισσότερα λογισμικά αυτού του τύπου, το \textlatin{Ansible} έχει δύο τύπους εξυπηρετητών, με τους οποίους ανταλλάσει δεδομένα: τους ελεγκτές και τους ελεγχόμενους κόμβους. Το λογισμικό \textlatin{Ansible}, το οποίο τρέχει στην μηχανή ελεγκτή, συνδέεται στους προς διαχείρηση κόμβους, με τη χρήση \textlatin{SSH, remote PowerShell} είτε άλλων \textlatin{remote APIs}. Η \textlatin{Ansible} αναγνωρίζει τους προς διαχείρηση κόμβούς με τη χρήση ειδικών αρχείων (\textlatin{Inventory}).
 
-Σε αντίθεση με διάφορα λογισμικά του είδους, όπως τα \textlatin{Chef, Puppet, CFEngine} το \textlatin{Ansible} δε χρειάζεται την εγκατάσταση συγκεκριμένου \textlatin{agent} στα μηχανήματα στόχους (\textlatin{agentless architecture}~\cite{wikipedia_2019}). Σε ένα τέτοιο είδος αρχιτεκτονικής, οι εξυπηρετητές δεν επιβαρύνονται με επιπλέον υπηρεσίες ή λογισμικό, ταα οποία τρέχουν στο παρασκήνιο και απορροφούν πόρους.
+Σε αντίθεση με διάφορα λογισμικά του είδους, όπως τα \textlatin{Chef, Puppet, CFEngine} το \textlatin{Ansible} δε χρειάζεται την εγκατάσταση συγκεκριμένου \textlatin{agent} στα μηχανήματα στόχους (\textlatin{agentless architecture}~\cite{wikipedia_2019}). Σε ένα τέτοιο είδος αρχιτεκτονικής, οι εξυπηρετητές δεν επιβαρύνονται με επιπλέον υπηρεσίες ή λογισμικό, τα οποία τρέχουν στο παρασκήνιο και απορροφούν πόρους.
 
 \section{Διαδικασία Εγκατάστασης}
 Μετά την εγκατάσταση της εικονικής μηχανής με τη χρήση του \textlatin{Vagrantfile}, όπως περιγράφηκε στο~\ref{vagrant}, ακολουθήθηκε η διαδικασία εγκατάστασης της πλατφόρμας με την κλήση του \textlatin{bash script} του Παραρτήματος~\ref{AppB}. Επιλέχθηκε η \textlatin{native installation}, έναντι των \textlatin{fullstack} ή \textlatin{devstack}, καθώς είναι η πιο πλήρης και μπορεί να εγκατασταθεί σε παραγωγικό εξυπηρετητή χωρίς ιδιαίτερς μετατροπές. Για την έκδοση του \textlatin{open edX} επιλέχθηκε η προηγούμενη σταθερή έκδοση (\textlatin{Ginkgo2} αντί \textlatin{Hawthorn}), καθώς είναι πιο δοκιμασμένη και απαιτεί λιγότερο χρόνο σε αποσφαλμάτωση.
 
 Οι 10 πρώτες γραμμές του \textlatin{bash script} διενεργούν αρχικούς ελέγχους και δημιουργούν απαραίτητους φακέλους. Στη συνέχεια εγκαθιστούνται στους αντίστοιχους φακέλους απαραίτητα \textlatin{components} του \textlatin{open edX}. Στις γραμμές 40-141 εισάγεται ένα πιστοποιητικό που αφορά σε πακέτα προς εγκατάσταση (αποτυγχάνει μέσω της αυτοματοποιημένης εγκατάστασης).
 
-Στη συνέχεια ορίζεται η προς εγκατάσταση έκδοση του \textlatin{open edX (Ginkgo2)} και μεταφορτώνεται το \textlatin{script} εγκατάστασης από το επίσημο αποθετήριο λογισμικού. Οι γραμμές 162-313 δημιουργούν ένα αρχείο \textlatin{patch}, το οποίο χρησιμοποιείται αργότερα για την τροποποίηση κάποιων αρχείων του λογισμικού, τα οποία δημιουργούν σφάλματα κατά την εγκατάσταση. Τέλος στις γραμμές 315-326 γίνεται μεταφόρτωση του λογισμικού \textlatin{open edX}, εφαρμόζεται το προαναφερθέν \textlatin{patch} και καλείται η \textlatin{ansible} για την ολοκλήρωση της αυτοματοποιημένης εγκατάστασης.
+Στη συνέχεια ορίζεται η προς εγκατάσταση έκδοση του \textlatin{open edX (Ginkgo2)} και μεταφορτώνεται το \textlatin{script} εγκατάστασης από το επίσημο αποθετήριο λογισμικού. Οι γραμμές 162-313 δημιουργούν ένα αρχείο \textlatin{patch}, το οποίο χρησιμοποιείται αργότερα για την τροποποίηση κάποιων αρχείων του λογισμικού, τα οποία δημιουργούν σφάλματα κατά την εγκατάσταση. Τέλος στις γραμμές 315-326 γίνεται μεταφόρτωση του λογισμικού \textlatin{open edX}, εφαρμόζεται το προαναφερθέν \textlatin{patch} και καλείται η \textlatin{ansible} για την ολοκλήρωση της αυτοματοποιημένης εγκατάστασης. Το αποτέλεσμα της εγκατάστασης είναι η αρχική σελίδα της πλατφόρμας του \textlatin{open edX}~\ref{fig:edx_landing}:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{openedx-start}
+\caption{Αρχική σελίδα \textlatin{open edX}}
+\label{fig:edx_landing}
+\end{figure}
 
-\chapter{Δημιουργία Ενδεικτικού Ιστοτόπου Μαθήματος}\label{ch4}
-\section{Εισαγωγή}
-Στη συνέχεια γίνεται σύντομη αναφορά στη διαδικασία δημιουργίας ενός ιστοτόπου μαθήματος, μέσα από το εργαλείο \textlatin{Studio} της πλατφόρμας \textlatin{open edX} (τμήμα \ref{ch2}). Έπειτα παρουσιάζεται συνοπτικά η λειτουργικότητα του ιστοτόπου αυτού. Παρατίθενται για αυτό το σκοπό ανάλογα \textlatin{screenshots} με επεξηγήσεις για τις κύριες λειτουργίες.
+\section{Συνοπτική Περιγραφή Λειτουργιών Πλατφόρμας}
+\subsection{Εισαγωγή}\label{edx_intro}
+Με το πέρας της εγκατάστασης είναι δυνατή η πρόσβαση των λειτουργιών της πλατφόρμας, όπως παρακάτω~\cite{confluence_1}:
+\begin{itemize}
+  \item \textlatin{LMS: \url{http://192.168.33.10/}}
+  \item \textlatin{Studio: \url{http://192.168.33.10:18010/}}
+  \item \textlatin{DJango Admin: \url{http://192.168.33.10/admin}}
+\end{itemize}
 
-\section{Δημιουργία του Μαθήματος}
-Για τη δημιουργία του μαθήματος ακολουθήθηκε η επίσημη τεκμηρίωση της πλατφόρμας~\cite{edxdata_package_1}.
-Αρχικά υλοποιήθηκε το \textlatin{admin panel} με τι σελίδες διαχείρησης χρηστών και δικαιωμάτων. Στη συνέχεια υλοποιήθηκαν οι σελίδες \textlatin{login} για τους απλούς χρήστες και το \textlatin{admin panel}, ώστε να είναι έτοιμες για τα σενάρια αποσφαλμάτωσης. Έπειτα δημιουργήθηκε το αρχείο με τα μηνύματα της διεπαφής στα ελληνικά και τα αγγλικά, το οποίο εμπλουτίστηκε στη συνέχεια με νέο περιεχόμενο, κατά τη διαδικασία της ανάπτυξης.
+Οι υπάρχοντες λογαριασμοί, οι οποίοι ενεργοποιούνται με την εγκατάσταση είναι οι παρακάτω~\cite{confluence_2}:
+\begin{itemize}
+  \item \textlatin{\texttt{staff@example.com}} Ένας χρήστης του \textlatin{LMS/Studio} με δικαιώματα δημιουργίας και αλλαγών μαθημάτων.
+  \item \textlatin{\texttt{verified@example.com}} Ένας δοκιμαστικός χρήστης του \textlatin{LMS}, με το ρόλο του εκπαιδευομένου (\textlatin{certificate verification}).
+  \item \textlatin{\texttt{audit@example.com}} Ένας δοκιμαστικός χρήστης του \textlatin{LMS}, με το ρόλο του εκπαιδευομένου (\textlatin{course auditing}).
+  \item \textlatin{\texttt{honor@example.com}} Ένας δοκιμαστικός χρήστης του \textlatin{LMS}, με το ρόλο του εκπαιδευομένου (\textlatin{honor certificate verification}).
+\end{itemize}
 
-Στα επόμενα στάδια δημιουργήθηκε η διεπαφή δημιουργίας μιας δημοπρασίας, με δυνατότητα ανάρτησης κειμένου, φωτογραφιών και άλλων πολυμέσων περιγραφής του προς πώληση προϊόντος. Τελευταία δημιουργήθηκε η διεπαφή πονταρίσματος (\textlatin{bidding}) με τις βασικές λειτουργίες αυτόματης ανανέωσης της σελίδας, λήξης της δημοπρασίας με χρονομέτρηση και ανάδειξη νικητή με βάση το ύψος της προσφοράς.
+Όλοι οι παραπάνω χρήστες έχουν κωδικό εισόδου \textlatin{\texttt{"edx"}}.
 
-Με το πέρας της διαδικασίας ανάπτυξης δημιουργήθηκαν δοκιμαστικοί χρήστες και σενάρια δοκιμών για την αποσφαλμάτωση του κώδικα. Δοκιμάστηκαν πλήρη σενάρια και διορθώθηκαν σφάλματα, τα οποία είχαν να κάνουν με την μη σωστή αυτόματη ανανέωση του περιεχομένου της σελίδας.
+\subsection{\textlatin{Admin Panel}}\label{edx_panel}
+Το \textlatin{DJango Admin Panel} χρησιμοποιείται για τη διαχείρηση της πλατφόρμας. Γενικότερα απαιτεί εξοικείωση με την πλατφόρμα και τον τρόπο λειτουργίας της. Από εδώ μπορεί να γίνει διαχείρηση χρηστών, εφαρμογή θεμάτων, δημιουργία \textlatin{subdomain}, εφαρμογή κανόνων για ένα σύνολο μαθημάτων κ.α. Γενικά αποτελεί το δυνατότερο εργαλείο παραμετροποίησης όλης της πλατφόρμας. Οι χρήστες που περιγράφτηκαν στο τμήμα~\ref{edx_intro} δεν μπορούν να χρησιμοποιηθούν για το \textlatin{DJango Admin}. Για την ενεργοποίηση δικαιωμάτων \textlatin{admin} ενός υπαρχοντος χρήστη (π.χ. \textlatin{staff}), ακολουθείται η παρακάτω διαδικασία από το \textlatin{bash shell}:
 \selectlanguage{english}
 \begin{Verbatim}
-  $ sudo -u edxapp bash
-  $ cd /edx/app/edxapp
-  $ . edxapp_env
-  $ . venvs/edxapp/bin/activate
-  $ cd edx-platform/
+  $ sudo -H -u edxapp bash
+  $ source /edx/app/edxapp/edxapp_env
+  $ source /edx/app/edxapp/venvs/edxapp/bin/activate
+  $ cd /edx/app/edxapp/edx-platform
   $ ./manage.py lms manage_user staff staff@example.com --staff --superuser --settings=devstack
 \end{Verbatim}
 \selectlanguage{greek}
 
+Η αρχική σελίδα του \textlatin{admin panel} φαίνεται στην εικόνα~\ref{fig:django-login}. Μετά την επιτυχή είσοδο στη σελίδα του \textlatin{admin panel} ο διαχειριστής μπαίνει στη σελίδα διαχείρησης του ιστοτόπου~\ref{fig:django-landing}.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{django-login}
+\caption{Φόρμα Εισόδου \textlatin{admin panel}}
+\label{fig:django-login}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{django-landing-page}
+\caption{\textlatin{Admin panel}}
+\label{fig:django-landing}
+\end{figure}
+
+\chapter{Δημιουργία Ενδεικτικού Ιστοτόπου Μαθήματος}\label{ch4}
+\section{Εισαγωγή}
+Στη συνέχεια γίνεται σύντομη αναφορά στη διαδικασία δημιουργίας ενός ιστοτόπου μαθήματος (\textlatin{microsite}) της πλατφόρμας \textlatin{open edX}. Έπειτα παρουσιάζεται συνοπτικά η λειτουργικότητα του ιστοτόπου αυτού. Παρατίθενται για αυτό το σκοπό ανάλογα \textlatin{screenshots} με επεξηγήσεις για τις κύριες λειτουργίες.
+
+Τα \textlatin{microsites} είναι \textlatin{subdomains} του κύριου domain της πλατφόρμας \textlatin{open edX}. Αυτά τα \textlatin{subdomains} βοηθούν στην καλύτερη ομαδοποίηση του \textlatin{MOOC} περιεχομένου, με τέτοιο τρόπο ώστε να είναι εφικτός ο διαχωρισμός των μαθημάτων με βάση συγκεκριμένα κριτήρια~\cite{microsites_2}. Τέτοιοι διαχωρισμοί μπορεί να είναι:
+\begin{itemize}
+  \item Μαθήματα ενός συγκεκριμένου εκπαιδευτή, από τα υπόλοιπα διαθέσιμα στην πλατφόρμα.
+  \item Μαθήματα μιας συγκεκριμένης σχολής, ξεχωριστά από των υπολοίπων
+  \item Μαθήματα ενός τμήματος μόνο.
+  \item Μαθήματα μιας εταιρίας, ξεχωριστά από μάθήματα με παρόμοια αντικέιμενα.
+  \item Αρχική σελίδα ενός και μόνου μαθήματος, το οποίο προβάλει καλύτερα το μάθημα και έλκει την προσοχή των μαθητών.
+\end{itemize}
+Με αυτό τον τρόπο οι μαθητές μπορούν να βρουν εύκολα ανάμεσα στα διαθεσιμμα μαθήματα, αυτά που τους ενδιαφέρουν, χωρίς να είναι αναγκασμένοι να διατρέξουν όλη τη λίστα των μαθημάτων.
+
+\subsection{Πλεονεκτήματα των \textlatin{microsites}}
+Εκτός από την ομαδοποίηση των μαθημάτων με συγκεκριμένα κριτήρια, όπως περιγράφηκε παραπάνω, η χρήση των \textlatin{microsites} παρέχει επιπρόσθετα πλεονεκτήματα. Για παράδειγμα κάθε \textlatin{microsite} μπορεί να έχει το δικό του θέμα, ταπετσαρία ή γραμματοσειρά. Επιπρόσθετα κάθε \textlatin{microsite} μπορεί να έχει διαφορετικά σύνολα από λειτουργικά \textlatin{XBlocks}, για παράδειγμα διαφορετικά για μαθήματα Χημείας ή Μαθηματικών. Τέλος είναι δυνατή η ενεργοποίηση διαφορετικών μεθόδοων αποπληρωμής, για τις παρεχόμενες υπηρεσίες της πλατφόρμας σε κάθε \textlatin{microsite}.
+
+\section{Δημιουργία του Ιστοτόπου Μαθήματος}
+Για τη δημιουργία του ιστοτόπου μαθήματος ακολουθήθηκε η επίσημη τεκμηρίωση της πλατφόρμας~\cite{edxdata_package_1} και ~\cite{microsites_1}. Αρχικά τροποποιήθηκε το \textlatin{microsite template}, το οποίο υπάρχει στον κώδικα του \textlatin{open edX} στη διαδρομή \textlatin{\texttt{/edx/app/edxapp/edx-platform/common/test/test\_sites/test\_site}}, έτσι ώστε να αντιστοιχεί στο επιθυμητό αποτέλεσμα. Οδηγός για τις απαραίτητες αλλαγές στάθηκε το~\cite{microsites_1}. Χρησιμοποιήθηκαν επίσης, τα \textlatin{logo} του εργαστηρίου από την επίσημη ιστοσελίδα (\textlatin{\url{https://www.netmode.ntua.gr}}).
+
+Για την ενεργοποίηση του \textlatin{microsite} έγιναν οι απαραίτητες αλλαγές στο αρχείο \textlatin{\texttt{/edx/app/edxapp/edx-platform/lms.env.json}}~\cite{microsites_1} με την προσθήκη των γραμμών που το ορίζουν σε μορφή \textlatin{json}:
+\selectlanguage{english}
+\begin{Verbatim}
+"FEATURES": {
+   ...
+   "USE_MICROSITES": true
+  },
+  ...
+  "MICROSITE_CONFIGURATION": {
+    "ntua": {
+        "domain_prefix": "ntua",
+        "university": "NTUA",
+        "platform_name": "NetMode Education Online Programs",
+        "logo_image_url":  "ntua/images/header-logo.png",
+        "ENABLE_MKTG_SITE":  false,
+        "SITE_NAME": "ntua.localhost",
+        "course_org_filter": "NetMode",
+        "course_about_show_social_links": false,
+        "css_overrides_file":  "ntua/css/ntua.css",
+        "show_partners":  false,
+        "show_homepage_promo_video": false,
+        "homepage_promo_video_youtube_id": "afyACWk95YU",
+        "course_index_overlay_text": "Explore NetMode courses",
+        "homepage_overlay_html":  "<h1>Welcome to NETMODE Laboratory</h1><h2>Online Courses powered by Open edX<sup>®</sup> Platform</h2>",
+        "favicon_path": "ntua/images/ntua-logo.png",
+        "ENABLE_THIRD_PARTY_AUTH": false,
+        "ALLOW_AUTOMATED_SIGNUPS": true,
+        "ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER": false,
+        "course_email_from_addr": "netmode_edx@ntua.gr",
+        "SESSION_COOKIE_DOMAIN": "ntua.localhost"
+      }
+  },
+  "MICROSITE_ROOT_DIR": "/edx/app/edxapp/edx-microsite",
+  ...
+\end{Verbatim}
+\selectlanguage{greek}
+
+Η παραπάνω διαδικασία είναι δυνατό να πραγματοποιηθεί και από το \textlatin{DJango Admin Panel}~\ref{edx_panel}, μέσω των αντίστοιχων επιλογών που διατίθενται για αυτό το σκοπό. Σε αυτή την περίπτωση επιλέγουμε \textlatin{\texttt{Add site}}~\ref{fig:django-new-site} και έπειτα κάνουμε επικόλληση το \textlatin{json} που περιγράφηκε παραπάνω~\ref{fig:django-site-conf}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{django-new-site}
+\caption{Σελίδα δημιουργίας ιστοτόπου}
+\label{fig:django-new-site}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{django-site-conf}
+\caption{Σελίδα Εισαγωγής Ρυθμίσεων ιστοτόπου}
+\label{fig:django-site-conf}
+\end{figure}
+
+Η ενεργοποίηση του ιστοτόπου πραγματοποίηθηκε στη συνέχεια με \textlatin{static assets recompile} και επανεκκίνηση των υπηρεσιών της πλατφόρμας~\cite{lawrence_mcdaniel_2018}:
+\selectlanguage{english}
+\begin{Verbatim}
+  $ sudo -H -u edxapp bash
+  $ source /edx/app/edxapp/edxapp_env
+  $ source /edx/app/edxapp/venvs/edxapp/bin/activate
+  $ cd /edx/app/edxapp/edx-platform
+  $ paver update_assets
+  $ sudo /edx/bin/supervisorctl restart all
+\end{Verbatim}
+\selectlanguage{greek}
+Με αυτό τον τρόπο δημιουργήθηκε η αρχική σελίδα του \textlatin{microsite}~\ref{fig:microsite_landing}, σε αντιπαράθεση με την αρχική σελίδα της πλατφόρμας~\ref{fig:edx_landing}:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{microsite-landing}
+\caption{Αρχική σελίδα \textlatin{edX microsite}}
+\label{fig:microsite_landing}
+\end{figure}
+
+\section{Δημιουργία ενδεικτικού Μαθήματος}
+Η αρχική σελίδα του \textlatin{microsite} εμφανίζεται κενή μαθημάτων εάν δεν ορίσουμε ή δημιουργήσουμε ένα. Για τη δημιουργία των μαθημάτων χρησιμοποιείται το εργαλείο \textlatin{studio}. Η αρχική σελίδα του εργαλείου, αφού αποκτήσουμε πρόσβαση όπως το τμήμα~\ref{edx_intro}, φαίνεται στην εικόνα~\ref{fig:edx-studio-landing}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{edx-studio-landing}
+\caption{Αρχική σελίδα \textlatin{edX studio}}
+\label{fig:edx-studio-landing}
+\end{figure}
+
+Από αυτή τη σελίδα είναι δυνατή η αλλαγή ενός υπαρχοντος μαθήματος (προσθήκη περιεχομένου ή αλλαγή ρυθμίσεων) είτε η προσθήκη ενός νέου~\cite{edxdata_package_2}. Η επιλογή γίνεται μέ τη χρήση των αντίστοιχων πλήκτρων πάνω στα δεξίά της οθόνης. Εφόσον επιλεγεί η δημιουργία ενός νέου μαθήματος, οδηγούμαστε στην επόμενη οθόνη, όπου μπορούμε να ορίσουμε τα βασικά στοιχεία του νέου μαθήματος~\ref{fig:edx-studio-new-course}. Η βασική παράμετρος ή οποία πρέπει να οριστεί σωστά, είναι το \textlatin{Organization}. Εάν θέλουμε το νέο μάθημα να εμφανίζεται στο \textlatin{microsite} που δημιουργήσαμε προηγουμένως πρέπει αυτή η παράμετρος να έχει ίδια τιμή με του \textlatin{course\_org\_filter} στις ρυθμίσεις του \textlatin{microsite}.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{edx-studio-new-course}
+\caption{Σελίδα νέου Μαθήματος \textlatin{edX studio}}
+\label{fig:edx-studio-new-course}
+\end{figure}
+
+Στη συνέχεια εφόσον δημιουργήσουμε το μάθημα μπορούμε να ορίσουμε διαδοχικά τις διδακτικές ενότητες και να προσθέσουμε το εκπαιδευτικό υλικό, όπως στην εικόνα~\ref{fig:edx-studio-course-outline}.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{edx-studio-course-outline}
+\caption{Σελίδα προσθήκης νέου Εκπαιδευτικού Υλικού \textlatin{edX studio}}
+\label{fig:edx-studio-course-outline}
+\end{figure}
+
 \section{Λειτουργικότητα Ιστοσελίδας}
-\subsection{\textlatin{Admin Panel}}
-Το πρώτο πράγμα που βλέπει κάποιος όταν επισκέπτεται την ιστοσελίδα είναι η φόρμα εισόδου. Για τις ανάγκες της εργασίας έχει δημιουργηθεί ένα ενδεικτικό \textlatin{"Mini site"}. Το \textlatin{url} του προαναφερόμενου ιστότοπου είναι \textlatin{\url{https://cd-edx.linked.gr}}.
+\subsection{Αρχική Σελίδα}
+Το πρώτο πράγμα που βλέπει κάποιος όταν επισκέπτεται την ιστοσελίδα είναι η φόρμα εισόδου. Ο κώδικας του \textlatin{microsite} παρέχει τη λειτουργικότητα της εισόδου υπαρχόντων~\ref{fig:microsite_login} αλλα και της δημιουργίας νέων χρηστών της πλατφόρμας~\ref{fig:microsite_register}.
 
-Once the VM is running, you can access the LMS and Studio at these URLS:
-
-    LMS: http://192.168.33.10/
-    Studio: http://192.168.33.10:18010/
-
-When you install an Open edX system, the following user accounts are created by default.
-
-    Account             Description
-    staff@example.com   An LMS and Studio user with course creation and editing permissions. This user is a course team member with the Admin role, which gives rights to work with the demonstration course in Studio, the LMS, and Insights.
-    verified@example.com  A student account that you can use to access the LMS for testing verified certificates.
-    audit@example.com   A student account that you can use to access the LMS for testing course auditing.
-    honor@example.com   A student account that you can use to access the LMS for testing honor code certificates.
-
-The password for all of these accounts is edx.
-
-
-Η αρχική σελίδα της πλατφόρμας \textlatin{} Μια για το \textlatin{admin panel} και μια για το \textlatin{login} των λοιπών χρηστών. Στην εικόνα~\ref{fig:login_1} παρουσιάζεται η σελίδα εισόδου στο \textlatin{admin panel}.
-\begin{figure}[H]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth, height=8cm]{Screenshot-2018-1-14-login-e-auctions}
-\caption{Φόρμα Εισόδου \textlatin{Admin Panel}}
-\label{fig:login_1}
+\includegraphics[width=0.8\textwidth, height=8cm]{microsite-login}
+\caption{Σελίδα Εισόδου Χρηστών}
+\label{fig:microsite_login}
 \end{figure}
 
-Παρόμοια είναι και η σελίδα εισόδου χρηστών, αλλά είναι προσβάσιμη μέσω διαφορετικού \textlatin{url}. Μετά την επιτυχή είσοδο στη σελίδα του \textlatin{admin panel} ο διαχειριστής μπαίνει στη σελίδα διαχείρησης χρηστών του ιστοτόπου. Από εδώ είναι δυνατή η δημιουργία, διαγραφή και τροποποίηση των χρηστών της πλατφόρμας. Επίσης, είναι δυνατή η ανάθεση ρόλων (πωλητή, αγοραστή, παρατηρητή ή διαχειριστή) και η αλλαγή συνθηματικών. Η φόρμα διαχείρησης χρηστών εμφανίζεται στην εικόνα~\ref{fig:user_admin}.
-\begin{figure}[H]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth, height=8cm]{Screenshot-2018-1-14-e-auctions-Admin-2}
-\caption{Φόρμα Διαχείρησης Χρηστών}
-\label{fig:user_admin}
-\end{figure}
-To create an Open edX site, follow these steps.
-
-    Sign in to the Django administration console for your base URL. For example, http://{your_URL}/admin.
-
-    Select Sites to open the http://{your_URL}/admin/sites/site page.
-
-    Enter the domain name for the site. This is the domain name in the URL for the site. For example, myuniversity.edu.
-
-    To make a site available on a non-default port that is entered as part of the URL, the domain name must include the port number. For example, if an LMS site is available at my-site.localhost:8000, the domain name for the site must be my-site.localhost:8000.
-
-    Select Save.
-
-To set configuration properties for a site, follow these steps.
-
-    Sign in to the Django administration console for your base URL. For example, http://{your_URL}/admin.
-
-    Select Site Configurations .
-
-    Select Add site configuration.
-
-    From the Site menu, select the site you want to configure.
-
-    Enter configuration properties in the Values field. Structure all properties in valid JavaScript Object Notation (JSON) format.
-
-    To make courses site-specific, you set the course_org_filter property to an organization identifier. Only that organization’s courses are available from the site.
-
-Theming
-sudo mkdir /edx-themes
-sudo chmod -R u+rw /edx-themes
-sudo chown -R www-data:www-data /edx-themes
-  sudo su -m -s /bin/bash www-data
-    git clone --depth=1 --single-branch -b "edx-west/release-20181212" https://github.com/Stanford-Online/openedx-themes.git /edx-themes
-  sudo vi /edx/app/edxapp/lms.env.json
-  sudo vi /edx/app/edxapp/cms.env.json
-  "ENABLE_COMPREHENSIVE_THEMING": true
-  "COMPREHENSIVE_THEME_DIRS": [
-    "/edx-themes"
-
-],
-
-sudo -H -u edxapp bash
-source /edx/app/edxapp/edxapp_env
-source /edx/app/edxapp/venvs/edxapp/bin/activate
-cd /edx/app/edxapp/edx-platform
-paver update_assets
-paver update_assets lms --theme-dirs /edx/app/edxapp/edx-microsite
-
-019-01-19 13:09:48,668 INFO 11160 [lms.startup] base.py:277 - Loading microsite path at /edx/app/edxapp/edx-microsite
-                Finished collecting lms assets.
-
-# restart edx instance
-sudo /edx/bin/supervisorctl restart all
-
-Select Site themes.
-Select Add site theme.
-From the Site menu, select the site you want to apply a theme to.
-In the Theme dir name field, enter the identifier of the theme.
-Select Save.
-
-Στο επόμενο \textlatin{tab} εμφανίζονται τα εργαλεία της διαχείρισης όλων των δημοπρασιών (μόνο ακύρωση - διαγραφή, εικόνα~\ref{fig:auction_admin}).
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth, height=8cm]{Screenshot-2018-1-14-e-auctions-Admin-3}
-\caption{Φόρμα Διαχείρησης Δημοπρασιών}
-\label{fig:auction_admin}
-\end{figure}
-To create a course, follow these steps~\cite{edxdata_package_2}.
-
-    Sign in to Studio.
-
-    Select New Course.
-
-    Enter the following information about your course.
-
-    Important
-
-    The values that you enter for the organization, course number, and course run cannot be edited after you create your course.
-
-        For Course Name, enter the title of your course. For example, the name might be “Sets, Maps, and Symmetry Groups”. Use title capitalization for the course title, and normal spacing and punctuation.
-
-        For Organization, you enter the identifier for your organization. Do not include spaces or special characters.
-
-        For Course Number, you enter both a subject abbreviation and a number. For example, for public health course number 207, enter PH207. For math course 101x, enter Math101x. Do not include spaces or special characters in the course number.
-
-        Note
-
-        If your course will be public, be sure to include the “x”. If it is exclusively an on campus offering, do not include the “x”.
-
-        For Course Run, you enter the term in which your course will run. For example, enter 2014SOND or T2_2014. Do not include spaces or special characters.
-
-        The value that you enter for the run does not affect the course start date that you define for the course. For more information, see Scheduling a Course Run.
-
-    The organization, course number, and course run values that you enter are used to create the URL for your course. Because URLs do not have an unlimited length, the total number of characters that you enter for these values must be 65 or fewer.
-
-    Select Create.
-
-    The Course Outline page opens. You can start developing course content. For more information, see Getting Started with Course Content Development.
-
-Το τελευταίο εργαλείο του \textlatin{admin panel} αφορά στη διαχείριση κατηγοριών προϊόντων. Εδώ καθορίζονται οι κατηγορίες στις οποίες καταχωρούνται τα προϊόντα κατά τη δημιουργία μιας δημοπρασίας. Είναι δυνατή η προσθήκη, διαγραφή και ενημέρωση της περιγραφής, του μοναδικού αναγνωριστικού και μιας προαιρετικής μικρογραφίας για την περιγραφή της κατηγορίας (εικόνα~\ref{fig:category_admin}).
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth, height=8cm]{Screenshot-2018-1-14-e-auctions-Admin-1}
-\caption{Φόρμα Διαχείρησης Κατηγοριών Προϊόντων}
-\label{fig:category_admin}
+\includegraphics[width=0.8\textwidth, height=8cm]{microsite-register}
+\caption{Σελίδα Εισαγωγής Νέου Χρήστη}
+\label{fig:microsite_register}
 \end{figure}
 
-\subsection{Λειτουργικότητα Δημοπρασιών}
-Εάν ένας χρήστης με ιδιότητα πωλητή ή αγοραστή εισέλθει στο σύστημα με τα διαπιστευτήριά του, μπορεί αναλόγως το ρόλο που του έχει δοθεί στο \textlatin{admin panel}, να δημιουργήσει μια δημοπρασία ή να ποντάρει σε αυτή. Στην εικόνα~\ref{fig:auction_new} παρουσιάζεται μια από τις φόρμες του οδηγού καταχώρησης νέας δημοπρασίας από ένα πωλητή.
-\begin{figure}[H]
+Μετά την είσοδο στην σελίδα παρουσιάζεται η αρχική σελίδα με τα διαθέσιμα μαθήματα, όπως στην εικόνα~\ref{fig:microsite-explore-course}. Για τις ανάγκες της εργασίας δημιουργήθηκε ένα ενδεικτικό μάθημα με τη χρήση του \textlatin{Studio}. Η διαδικασία δημιουργίας του μαθήματος περιγράφεται στο αντίστοιχο τμήμα~\ref{studio}.
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth, height=8cm]{Screenshot-2018-1-14-Sell-e-auctions}
-\caption{Φόρμα Καταχώρησης Δημοπρασιών}
-\label{fig:auction_new}
+\includegraphics[width=0.8\textwidth, height=8cm]{microsite-explore-courses}
+\caption{Σελίδα Πλοήγησης Μαθημάτων}
+\label{fig:microsite-explore-course}
 \end{figure}
 
-Όταν ο χρήστης έχει το ρόλο αγοραστή (\textlatin{bidder}) ή παρατηρητή (\textlatin{spectator}) μπορεί να έχει πρόσβαση στις σελίδες προόδου της δημοπρασίας, αλλά μπορεί να αλληλεπιδρά με αυτές και να ποντάρει μόνο εφόσον έχει το ρόλο του πωλητή. Στην εικόνα~\ref{fig:auction_bid} παρουσιάζεται μια από τις φόρμες του οδηγού καταχώρησης νέου "χτυπηματος" (\textlatin{bidding} δημοπρασίας από έναν αγοραστή.
-\begin{figure}[H]
+\subsection{Επιλογή Μαθημάτων}
+Μετά από την επιλογή ενός από τα διαθέσιμα μαθήματα, μεταφερόμαστε στην αντίστοιχη σελίδα (εικόνα~\ref{fig:microsite-course1}). Εκεί παρουσιάζεται συνοπτικά μια περιγραφή του μαθήματος, καθώς και διάφορα στοιχεία που αφορούν στην ημερομηνία έναρξης των παραδόσεων, τις ώρες εβδομαδιαίας διδασκαλίας, κ.α. Στη σελίδα αυτή υπάρχει η δυνατότητα ανάρτησης ενός εισαγωγικού βίντεο για την ενημέρωση των εκπαιδευομένων.
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth, height=8cm]{Screenshot-2018-1-14-Essential-Phone-128-GB-Unlocked-with-Full-Display-Dual-Camera-Black-Moon-1}
-\caption{Φόρμα Καταχώρησης Χτυπημάτων}
-\label{fig:auction_bid}
+\includegraphics[width=0.8\textwidth, height=8cm]{microsite-course1}
+\caption{Αρχική Σελίδα Μαθήματος}
+\label{fig:microsite-course1}
+\end{figure}
+
+Η επιλογή \textlatin{"view course"} μας μεταφέρει σε μια συνοπτική περιγραφή των διδακτικών ενοτήτων, όπως αυτές καταχωρήθηκαν κατά την δημιουργία του μαθήματος στο \textlatin{studio}~\ref{studio} (εικόνα~\ref{fig:microsite-course2}). Από εδώ ο εκπαιδευόμενος μπορεί να επιλέξει μια από τις διαθέσιμες ενότητες, που τον ενδιαφέρει και πλοηγηθεί στο υλικό του μαθήματος (σημειώσεις, βιβλία, εκπαιδευτικά βίντεο, κτλ).
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth, height=8cm]{microsite-course2}
+\caption{Σελίδα Διδακτικών Ενοτήτων}
+\label{fig:microsite-course2}
 \end{figure}
 
 \section{Συμπεράσματα}
